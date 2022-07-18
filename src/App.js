@@ -3,17 +3,23 @@ import React, { useEffect, useState, useRef } from "react";
 
 function App() {
   const [name, setName] = useState();
-  const renderCount = useRef(0);
+  const inputRef = useRef();
+  const prevName = useRef("");
 
   useEffect(() => {
-    renderCount.current = renderCount.current + 1;
-  });
+    prevName.current = name;
+  }, [name]);
 
   return (
     <>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
-      <div>My name is {name}</div>
-      <div>I rendered {renderCount.current} times</div>
+      <input
+        ref={inputRef}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <div>
+        My name is {name} and it used to be {prevName.current}
+      </div>
     </>
   );
 }
